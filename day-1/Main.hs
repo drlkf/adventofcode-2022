@@ -1,5 +1,6 @@
 module Main where
 
+import           Data.List          (sortOn)
 import           Data.List.Split    (splitOn)
 import           System.Environment (getArgs)
 
@@ -13,5 +14,6 @@ main = do
   cts <- readInput
   let elves = map (map read) $ splitOn [""] $ lines cts :: [[Int]]
       totals = map sum elves
+      result = take 3 $ sortOn negate totals
 
-  print $ maximum totals
+  print $ sum result
