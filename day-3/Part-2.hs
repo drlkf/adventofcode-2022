@@ -10,7 +10,8 @@ uniq (a:as) | a `elem` as = uniq as
             | otherwise = a:as
 
 duplicates :: (String, String, String) -> String
-duplicates (s1, s2, s3) = filter (`elem` s3) $ filter (`elem` s2) s1
+duplicates (s1, s2, s3) = filter dup s1
+  where dup c = c `elem` s2 && c `elem` s3
 
 priority :: Char -> Int
 priority c | isUpper c = 26 + priority (toLower c)
