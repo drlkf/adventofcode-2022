@@ -78,10 +78,10 @@ main = do
                   else readFile $ head args
 
   cts <- lines <$> readInput
-  let part1 = takeWhile (not . null) cts
-      stackInput = take (length part1 - 1) part1
+  let (part1, part2) = break null cts
+      stackInput = init part1
       stacksLine = last part1
-      moveInput = dropWhile null $ drop (length part1) cts
+      moveInput = dropWhile null part2
 
       stackLines = map read stackInput
       stackNumbers = map read $ words stacksLine
