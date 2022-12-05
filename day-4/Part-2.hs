@@ -11,12 +11,13 @@ data Assignment = Assignment Int Int
 
 instance Read Assignment where
   readPrec = do
-    x <- lift $ many $ satisfy isDigit
+    x <- number
     get >>= dash
-    y <- lift $ many $ satisfy isDigit
+    y <- number
     return $ Assignment (read x) (read y)
       where dash '-' = return ()
             dash  _  = pfail
+            number = lift $ many $ satisfy isDigit
 
 data ElfPair = ElfPair Assignment Assignment
   deriving Show
