@@ -67,6 +67,7 @@ move m stacks =
   where qty = quantity m
         from = source m
         to = target m
+        -- for part 2, remove the 'reverse' call
         pile = reverse $ take qty $ stacks ! from
 
 main :: IO ()
