@@ -1,7 +1,7 @@
 module Main where
 
 import           Data.Char                       (isAlpha, isDigit)
-import           Data.List
+import           Data.List                       (transpose)
 import           Data.Map                        (Map, adjust, elems, fromList,
                                                   (!))
 import           Data.Maybe                      (mapMaybe)
