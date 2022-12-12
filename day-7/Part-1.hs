@@ -2,6 +2,7 @@
 module Main where
 
 import           Data.Char                       (isDigit)
+import           Data.List                       (sortOn)
 import           Data.Map                        (Map, empty, insert)
 import qualified Data.Map                        as M (foldl)
 import           System.Environment              (getArgs)
@@ -96,4 +97,14 @@ main = do
   let inputs = map read cts :: [Input]
       root = Directory empty
       (dirs, _) = interpret root inputs
-  print $ sum $ filter (< 100_000) $ map computeSize $ directories dirs
+      fsSize = 70_000_000
+      needed = 30_000_000
+      used = computeSize dirs
+      unused = fsSize - used
+      toFree = needed - unused
+      dirs' = directories dirs
+      dirSizes = sortOn snd $ zip dirs' $ map computeSize dirs'
+      safeHead []    = Nothing
+      safeHead (x:_) = Just x
+      toDelete = safeHead $ dropWhile ((< toFree) . snd) dirSizes
+  maybe (pure ()) (print . snd) toDelete
